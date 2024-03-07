@@ -1,4 +1,4 @@
-<html>
+uired<html>
   <head>
       <!--Required meta tags-->
         <meta charset="utf-8">
@@ -52,19 +52,19 @@ else{
 <form action="registration.php" method="post">
     <div class="form-group">
       <label for="name" class="form-label">Student Name</label>
-      <input type="text" class="form-control" name="name" id="name" placeholder="Enter your Name">
+      <input type="text" class="form-control" name="name" id="name" placeholder=" Name"required>
     </div>
     <div class="form-group">
       <label for="fathername" class="form-label">Father Name</label>
-      <input type="text" class="form-control" name="fathername" id="fathername" placeholder="Enter your Father'sName">
+      <input type="text" class="form-control" name="fathername" id="fathername" placeholder="Enter your FatherName"required>
     </div>
     <div class="form-group">
       <label for="phoneno" class="form-label">Phone.No</label>
-      <input type="text" class="form-control" name="phoneno" id="phoneno" placeholder="Enter your Phone No.">
+      <input type="text" class="form-control" name="phoneno" id="phoneno" placeholder="Enter your Phone No"required>
     </div>
     <div class="form-group">
       <label for="email" class="form-label">Email</label>
-      <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email">
+      <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email"required>
     </div>
     <div class="form-group">
       <label for="class" class="form-label">Select Class</label>
@@ -113,7 +113,7 @@ else{
         </div>
         <div class="form-group">
          <label for="Acc.CreatedOn" class="form-label">Account Created On</label>
-         <input type="datetime-local" class="form-control" name="AccCreatedOn" id="AccCreatedOn">
+         <input type="datetime-local" class="form-control" name="AccCreatedOn" id="AccCreatedOn"required>
         </div>
         <div class="form-group">
          <label for="status" class="form-label">Status</label>
@@ -125,7 +125,7 @@ else{
         </div>
         <div class="cform-group">
          <label for="createdby" class="form-label">CreatedBy</label>
-         <input type="text" class="form-control" name="createdby" id="createdby">
+         <input type="text" class="form-control" name="createdby" id="createdby"required>
         </div>
         <div class="form-group">
         <div class="form-check">
