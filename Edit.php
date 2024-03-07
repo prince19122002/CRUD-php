@@ -3,6 +3,7 @@
       <!--Required meta tags-->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
       <!--Bootstrap CSS,js,jquery-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="//cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css">
@@ -17,6 +18,7 @@
             $username = "root";
             $password = "";
             $database = "records";
+
            // Creating a connection
             $conn = mysqli_connect($servername, $username, $password, $database);
            // if connection was not successful
@@ -26,25 +28,25 @@
                echo "Connection was successful";
               }
               $sql = "SELECT * FROM `users` WHERE ID =" .$_GET['id'];
-              
+              //print_r($_GET);
               if($result = $conn ->query($sql)) {
                   while ($row = $result -> fetch_assoc()) {
-                    $name = $row['name'];
-                    $fathername = $row['fathername'];
-                    $phoneno = $row['phoneno'];
-                    $email = $row['email'];
-                    $class = $row['class'];
-                    $gender = $row['gender'];
-                    $note = $row['note'];
+                    $name = $row['Name'];
+                    $fathername = $row['FathersName'];
+                    $phoneno = $row['Phone.no'];
+                    $email = $row['Email'];
+                    $class = $row['Class'];
+                    $gender = $row['Gender'];
+                    $note = $row['Note'];
                     $DOB = $row['DOB'];
-                    $AccCreatedOn = $row['AccCreatedOn'];
-                    $status = $row['status'];
-                    $createdby = $row['createdby'];
+                    $AccCreatedOn = $row['Acc.CreatedOn'];
+                    $status = $row['Status'];
+                    $createdby = $row['Acc.CreatedBy'];
           ?>
-  <form action="edit.php?id=<?php echo $ID; ?>" method="post">
+  <form action="edit.php?id=<?php echo $row['ID']; ?>" method="post">
     <div class="form-group">
       <label for="ID" class="form-label"><span style="color:black;font-weight:bold">ID</span></label>
-      <input type="integer" class="form-control" name="ID" placeholder="Enter your ID" value="<?php echo $ID ?>">
+      <input type="integer" class="form-control" name="ID" placeholder="Enter your ID" value="<?php echo $row['ID'] ?>">
     </div>
     <div class="form-group">
       <label for="name" class="form-label"><span style="color:black;font-weight:bold">Student Name:-</span></label>
@@ -129,9 +131,9 @@
          <button type="submit" class="btn btn-primary" name="submit" value="edit">Save</button>
         </div>
   </form>
-  <?php
+  <?php     
                   }
-      }
+      }   
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $name = $_POST['name'];
         $fathername = $_POST['fathername'];
@@ -144,17 +146,19 @@
         $AccCreatedOn = $_POST['AccCreatedOn'];
         $status = $_POST['status'];
         $createdby = $_POST['createdby'];
+      
       //submit data to DB
       // Sql query
-      $sql = "INSERT INTO `users` (`name`, `fathername`, `phoneno`, `email`, `class`, `gender`, `note`, `DOB`, `AccCreatedOn`, `status`, `createdby`)
+      $sql = "INSERT INTO `users` (`Name`, `FathersName`, `Phone.no`, `Email`, `Class`, `Gender`, `Note`, `DOB`, `Acc.CreatedOn`, `Status`, `Acc.CreatedBy`) 
       VALUES ('$name','$fathername','$phoneno','$email','$class','$gender','$note','$DOB','$AccCreatedOn','$status','$createdby')";
       $result = mysqli_query($conn, $sql);
        if($result){
-          echo "Your details has been Successfully Added!";
+          echo "Your details has been Successfully Added";
          }else{
-              echo "Your data was not inserted successfully because". mysqli_error($conn);
+              echo "Your data  not inserted successfully ". mysqli_error($conn);
           }
-      }
+
+      }      
   ?>
 <!--ptional JavaScript-->
     <!--jQuery first, then Popper.js, then Bootstrap JS-->
