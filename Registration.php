@@ -55,23 +55,23 @@ else{
   <h1> Details</h1>
 <form action="registration.php" method="post">
     <div class="form-group">
-      <label for="name" class="form-label"><span style="color:black;font-weight:bold">Student Name:-</span></label>
-      <input type="text" class="form-control" name="name" id="name" placeholder="Enter your Name" required>
+      <label for="name" class="form-label">Student Name</label>
+      <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
     </div>
     <div class="form-group">
-      <label for="fathername" class="form-label"><span style="color:black;font-weight:bold">Father's Name:-</span></label>
-      <input type="text" class="form-control" name="fathername" id="fathername" placeholder="Enter your Father'sName"required>
+      <label for="fathername" class="form-label">Father's Name</label>
+      <input type="text" class="form-control" name="fathername" id="fathername" placeholder="Father'sName"required>
     </div>
     <div class="form-group">
-      <label for="phoneno" class="form-label"><span style="color:black;font-weight:bold">Phone.No:-</span></label>
+      <label for="phoneno" class="form-label">Phone.No</label>
       <input type="text" class="form-control" name="phoneno" id="phoneno" placeholder="Enter your Phone No." required>
     </div>
     <div class="form-group">
-      <label for="email" class="form-label"><span style="color:black;font-weight:bold">Email:-</span></label>
+      <label for="email" class="form-label">Email</label>
       <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email" required>
     </div>
     <div class="form-group">
-      <label for="class" class="form-label"><span style="color:black;font-weight:bold">Select Class:-</span></label>
+      <label for="class" class="form-label">Select Class</label>
       <select id="class" name="class" class="form-select" required>
         <option value="Select Class">Select Class</option>
         <option value="1st">1st</option>
@@ -88,7 +88,7 @@ else{
         <option value="12th">12th</option>
       </select>
     </div>
-    <label for="gender" class="form-label" required><span style="color:black;font-weight:bold">Select Gender:-</span></label>
+    <label for="gender" class="form-label" required>Select Gender</label>
       <div name="gender" id="gender" class="form-check">
           <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
           <label class="form-check-label" for="gridRadios1">
@@ -108,19 +108,19 @@ else{
           </label>
         </div>
         <div class="form-group">
-         <label for="note" class="form-label" required><span style="color:black;font-weight:bold">Note:-</span></label>
-         <textarea class="form-control" name="note" id="note" rows="5" placeholder="Add your Note Here"></textarea>
+         <label for="note" class="form-label" required>Note</label>
+         <textarea class="form-control" name="note" id="note" rows="5" placeholder="Add Note "></textarea>
         </div>
         <div class="form-group">
-         <label for="DOB" class="form-label"><span style="color:black;font-weight:bold">Date of Birth(DOB):-</span></label>
+         <label for="DOB" class="form-label">Date of Birth</label>
          <input type="date" class="form-control" name="DOB" id="DOB" required>
         </div>
         <div class="form-group">
-         <label for="Acc.CreatedOn" class="form-label"><span style="color:black;font-weight:bold">Account Created On:-</span></label>
+         <label for="Acc.CreatedOn" class="form-label">Account Created On</label>
          <input type="datetime-local" class="form-control" name="AccCreatedOn" id="AccCreatedOn" required>
         </div>
         <div class="form-group">
-         <label for="status" class="form-label"><span style="color:black;font-weight:bold">Status:-</span></label>
+         <label for="status" class="form-label">Status</label>
          <select id="status" name="status" class="form-select" required>
           <option value="Select Status">Select Status</option>
           <option value="Active">Active</option>
@@ -128,13 +128,13 @@ else{
          </select>
         </div>
         <div class="cform-group">
-         <label for="createdby" class="form-label"><span style="color:black;font-weight:bold">CreatedBy:-</span></label>
+         <label for="createdby" class="form-label">CreatedBy</label>
          <input type="text" class="form-control" name="createdby" id="createdby" required>
         </div>
         <div class="form-group">
         <div class="form-check">
          <input class="form-check-input" type="checkbox" id="termandcondition" required>
-         <label class="form-check-label" for="gridCheck"><span style="color:black;font-weight:bold">Terms and Conditions</span></label>
+         <label class="form-check-label" for="gridCheck">Terms and Conditions</label>
         </div>
          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
