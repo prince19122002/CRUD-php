@@ -123,7 +123,7 @@ else{
           <option value="Inactive">Inactive</option>
          </select>
         </div>
-        <div class="cform-group">
+        <div class="form-group">
          <label for="createdby" class="form-label">CreatedBy</label>
          <input type="text" class="form-control" name="createdby" id="createdby"required>
         </div>
