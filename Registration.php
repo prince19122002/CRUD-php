@@ -1,9 +1,32 @@
+<?php
+// Connecting to the DB
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "records";
+// Creating a connection
+$conn = mysqli_connect($servername, $username, $password, $database);
+// if connection was not successful
+if (!$conn){
+    die("Failed to connect". mysqli_connect_error());
+}else{
+    echo "Connection was successful";
+}
+$limit =10;
+$page=isset($_GET['page']) ? $_GET['page'] : 1;
+$start=($page-1) * $limit;
+$result=$conn->query("SELECT * FROM users LIMIT $start, $limit");
+$users=$result->fetch_all(MYSQLI_ASSOC);
+$result1=$conn->query("SELECT count(id) as id FROM users");
+$usercount=$result1->fetch_all(MYSQLI_ASSOC);
+$total=$usercount[0]['id'];
+$pages= ceil($total / $limit);
+?>
 <html>
   <head>
       <!--Required meta tags-->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
       <!--Bootstrap CSS,js,jquery-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="//cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css">
@@ -22,45 +45,34 @@
      $AccCreatedOn = $_POST['AccCreatedOn'];
      $status = $_POST['status'];
      $createdby = $_POST['createdby'];
-
-// Connecting to the DB
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "records";
-
-// Creating a connection
-$conn = mysqli_connect($servername, $username, $password, $database);
-// if connection was not successful
-if (!$conn){
-    die("Failed to connect". mysqli_connect_error());
-}else{
-    echo "Connection successful";
-}
 //submit data to DB
 // Sql query
-$sql = "INSERT INTO `users` (`Name`, `FathersName`, `Phone.no`, `Email`, `Class`, `Gender`, `Note`, `DOB`, `Acc.CreatedOn`, `Status`, `Acc.CreatedBy`) 
+$sql = "INSERT INTO `users` (`Name`, `FathersName`, `Phone.no`, `Email`, `Class`, `Gender`, `Note`, `DOB`, `Acc.CreatedOn`, `Status`, `Acc.CreatedBy`)
                           VALUES ('$name','$fathername','$phoneno','$email','$class','$gender','$note','$DOB','$AccCreatedOn','$status','$createdby')";
 $result = mysqli_query($conn, $sql);
 if($result){
-    echo "details has  added successfully.";
-
+    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+   <strong>Successfully Added!</strong>Your details has been added successfully.
+   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+   </button>
+ </div>';
 }
 else{
-    echo "data  not inserted successfully". mysqli_error($conn);
+    echo "Your data was not inserted successfully because". mysqli_error($conn);
 }
 }
 ?>
   <div class="container mt-4">
   <h1> Details</h1>
-<form action="registration.php" method="post">
+  <form action="registeration.php" method="post">
     <div class="form-group">
       <label for="name" class="form-label">Student Name</label>
       <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
     </div>
     <div class="form-group">
       <label for="fathername" class="form-label">Father's Name</label>
-      <input type="text" class="form-control" name="fathername" id="fathername" placeholder="Father'sName"required>
+      <input type="text" class="form-control" name="fathername" id="fathername" placeholder="Enter your Father'sName"required>
     </div>
     <div class="form-group">
       <label for="phoneno" class="form-label">Phone.No</label>
@@ -88,8 +100,8 @@ else{
         <option value="12th">12th</option>
       </select>
     </div>
-    <label for="gender" class="form-label" required>Select Gender</label>
-      <div name="gender" id="gender" class="form-check">
+    <label for="gender" class="form-label"> Gender</label>
+      <div name="gender" id="gender" required class="form-check">
           <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
           <label class="form-check-label" for="gridRadios1">
             Male
@@ -108,8 +120,8 @@ else{
           </label>
         </div>
         <div class="form-group">
-         <label for="note" class="form-label" required>Note</label>
-         <textarea class="form-control" name="note" id="note" rows="5" placeholder="Add Note "></textarea>
+         <label for="note" class="form-label">Note</label>
+         <textarea class="form-control" name="note" id="note" rows="5" placeholder=" Note " required></textarea>
         </div>
         <div class="form-group">
          <label for="DOB" class="form-label">Date of Birth</label>
@@ -127,7 +139,7 @@ else{
           <option value="Inactive">Inactive</option>
          </select>
         </div>
-        <div class="cform-group">
+        <div class="form-group">
          <label for="createdby" class="form-label">CreatedBy</label>
          <input type="text" class="form-control" name="createdby" id="createdby" required>
         </div>
@@ -138,15 +150,8 @@ else{
         </div>
          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-</form>
+  </form>
    <?php
-   // Sql query
-     $sql = "SELECT * FROM `users`";
-     $result = mysqli_query($conn, $sql);
-   // Find the number of records returned
-     $num = mysqli_num_rows($result);
-     echo "<span style='color:black;font-weight:bold'>Total $num Datas are found in DB.</span>";
-     echo "<br>";
      /*
       // Display the data returned by the sql query from DB
        while($row = mysqli_fetch_assoc($result)){
@@ -157,6 +162,30 @@ else{
    ?>
 <!--Table of DB data on web page-->
 <div class="container">
+<div class="row">
+      <div class="col-md-10">
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <!--
+            <li>
+              <a href="regestration.php?page=<?= $Previous; ?>" aria-label="Previous">
+                <span aria-hidden="true">&laquo; Previous</span>
+              </a>
+            </li>
+            --->
+            <?php for($a = 1; $a<= $pages; $a++) : ?>
+              <li><a href="registeration.php?page=<?= $a; ?>"><?= $a; ?></a></li>
+            <?php endfor; ?>
+            <!---
+            <li>
+              <a href="regestration.php?page=<?= $Next; ?>" aria-label="Next">
+                <span aria-hidden="true">Next &raquo;</span>
+              </a>
+            </li>
+            --->
+          </ul>
+        </nav>
+      </div>
 <table class="table">
   <thead>
     <tr>
@@ -176,7 +205,30 @@ else{
     </tr>
   </thead>
  <tbody>
-  <?php 
+ <?php foreach($users as $user) : ?>
+    <tr>
+      <td><?=$user['ID']?></td>
+      <td><?=$user['Name']?></td>
+      <td><?=$user['FathersName']?></td>
+      <td><?=$user['Phone.no']?></td>
+      <td><?=$user['Email']?></td>
+      <td><?=$user['Class']?></td>
+      <td><?=$user['Gender']?></td>
+      <td><?=$user['Note']?></td>
+      <td><?=$user['DOB']?></td>
+      <td><?=$user['Acc.CreatedOn']?></td>
+      <td><?=$user['Status']?></td>
+      <td><?=$user['Acc.CreatedBy']?></td>
+      <td>
+      <a href='edit.php?id=<?=$user['ID'] ?>' class='btn btn-primary'>Edit</a>
+      </td>
+      <td>
+      <a href='delete.php?id=<?=$user['ID'] ?>' class='btn btn-danger'>Delete</a>
+      </td>
+    </tr>
+  <?php endforeach; ?> 
+
+  <?php
     $sql = "SELECT * FROM `users`";
     $result = mysqli_query($conn, $sql);
       while($row = mysqli_fetch_assoc($result)){
@@ -194,14 +246,13 @@ else{
             <td>" . $row['Status'] . "</td>
             <td>" . $row['Acc.CreatedBy'] . "</td>
             <td>
-             <a href='edit.php?id=" . $row['ID'] ."' class='btn btn-primary'>Edit</a> 
+             <a href='edit.php?id=" . $row['ID'] ."' class='btn btn-primary'>Edit</a>
             </td>
             <td>
-             <a href='delete.php?id=" . $row['ID'] ."' class='btn btn-danger'>Delete</a> 
+             <a href='delete.php?id=" . $row['ID'] ."' class='btn btn-danger'>Delete</a>
             </td>
           </tr>";
-        } 
-       
+        }
   ?>
  </tbody>
 </table>
@@ -213,3 +264,15 @@ else{
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
