@@ -170,7 +170,7 @@ else{
 	<div class="form-group">
 	<nav aria-label="Page navigation">
 					<ul class="pagination">
-          <li class="page-item"><a class="page-link" href="registeration.php?page=<?= $Previous; ?>" aria-label="Nrevious">Previous</span></a></li>
+          <li class="page-item"><a class="page-link" href="registeration.php?page=<?= $Previous; ?>" aria-label="previous">Previous</span></a></li>
 				    <?php for($a = 1; $a<= $pages; $a++) : ?>
 				    	<li class="page-item"><a class="page-link" href="registeration.php?page=<?= $a; ?>"><?= $a; ?></a></li>
 				    <?php endfor; ?>
